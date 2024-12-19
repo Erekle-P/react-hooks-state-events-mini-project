@@ -9,14 +9,23 @@ function App() {
   const [tasks, setTasks] = useState(TASKS);
   const [selectedCategory, setSelectedCategory] = useState("All");
 
+  // Handles category selection
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
   };
 
+  // Handles task form submission
   const handleTaskFormSubmit = (newTask) => {
     setTasks((prevTasks) => [...prevTasks, newTask]);
   };
 
+  // Handles task deletion
+  const handleDelete = (taskText) => {
+    const updatedTasks = tasks.filter((task) => task.text !== taskText);
+    setTasks(updatedTasks);
+  };
+
+  // Filters tasks based on the selected category
   const filteredTasks =
     selectedCategory === "All"
       ? tasks
@@ -34,7 +43,7 @@ function App() {
         categories={CATEGORIES.filter((category) => category !== "All")}
         onTaskFormSubmit={handleTaskFormSubmit}
       />
-      <TaskList tasks={filteredTasks} />
+      <TaskList tasks={filteredTasks} onDelete={handleDelete} />
     </div>
   );
 }

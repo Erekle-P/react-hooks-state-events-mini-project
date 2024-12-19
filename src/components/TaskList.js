@@ -1,15 +1,15 @@
 import React from "react";
 import Task from "./Task";
 
-function TaskList({ tasks }) {
+function TaskList({ tasks, onDelete }) {
   return (
     <div className="tasks">
-      {tasks.map((task, index) => (
+      {tasks.map((task) => (
         <Task
-          key={index}
+          key={task.text} // Assuming task text is unique
           text={task.text}
           category={task.category}
-          onDelete={() => alert("Task deleted")} // implement delete functionality
+          onDelete={() => onDelete(task.text)}
         />
       ))}
     </div>
